@@ -1,0 +1,81 @@
+﻿@page "/"
+
+<div class="row">
+    <div class="col text-center">
+        <h1>Welocme to our Game Industry Page</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col text-center">
+        <h2>Show all games in MOCK Database:</h2>
+    </div>
+</div>
+
+
+<GameListTable Games="games"/>
+
+<IndividualGame Game="oneGameToShow" IsTable="false" DisplayButtons="true" SwitchGame="ShowNewGame"/>
+
+@code{
+
+    List<Game> games;
+
+    Random rnd;
+    Game oneGameToShow;
+
+    protected async override Task OnInitializedAsync()
+    {
+        await Task.Delay(3000);
+        games = new List<Game>()
+        {
+            new Game()
+            {
+                Name = "The Elder Scrolls 5: Skyrim",
+                Genre = "Action/RPG",
+                ReleaseDate = new DateTime(2011, 11, 11)
+            },
+            new Game()
+            {
+                Name = "Grand Theft Auto 5",
+                Genre = "Action/Adventure",
+                ReleaseDate = new DateTime(2013, 09, 17)
+            },
+            new Game()
+            {
+                Name = "Grand Theft Auto 4",
+                Genre = "Action/Adventure",
+                ReleaseDate = new DateTime(2008, 04, 29)
+            },
+        };
+
+        rnd = new Random(DateTime.Now.Millisecond);
+        oneGameToShow = games[rnd.Next(0, games.Count)];
+    }
+
+    void ShowNewGame()
+    {
+        oneGameToShow = SwitchGame();
+    }
+
+    Game SwitchGame()
+    {
+        Game tempGame;
+
+        if (games.Count >= 2)
+        {
+            int iterator = rnd.Next(0, games.Count);
+            tempGame = games[iterator];
+        }
+        else if(games.Count == 1)
+        {
+            tempGame = games[0];
+        }
+        else
+        {
+            return new Game() { Name = "No items in array!", ReleaseDate = DateTime.Now};
+        }
+
+        return tempGame;
+    }
+}

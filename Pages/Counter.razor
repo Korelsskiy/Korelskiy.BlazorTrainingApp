@@ -1,0 +1,58 @@
+﻿@page "/counter"
+
+<div class="row">
+    <div class="col alert alert-secondary text-center">
+        <h1>COUNTER</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6 text-left">
+        <button class="btn btn-primary p-3" @onclick="IncrementCount">Click me</button>
+    </div>
+    <div class="col-6 text-right">
+        <div style="font-size: 50px">@currentCount</div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col text-center">
+        <input type="number" class="form-control-lg" @bind="currentCount"/>
+    </div>
+</div>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    List<Game> otherGames;
+
+    protected override void OnInitialized()
+    {
+        otherGames = new List<Game>()
+        {
+            new Game()
+            {
+                Name = "Minecraft",
+                Genre = "Sandbox/Survival",
+                ReleaseDate = new DateTime(2011, 11, 18)
+            },
+            new Game()
+            {
+                Name = "Grand Theft Auto: San Andreas",
+                Genre = "Action/Adventure",
+                ReleaseDate = new DateTime(2004, 10, 26)
+            },
+            new Game()
+            {
+                Name = "Assassin's Creed II",
+                Genre = "Action/Adventure/Stels",
+                ReleaseDate = new DateTime(2009, 11, 17)
+            },
+        };
+    }
+}
