@@ -1,3 +1,4 @@
+using Korelskiy.BlazorTrainingApp.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -26,7 +27,12 @@ namespace Korelskiy.BlazorTrainingApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddServerSideBlazor();  
+            services.AddServerSideBlazor();
+           // services.AddScoped(); // Используется один объект всеми обращениями
+            services.AddTransient<TransientServices>(); // При каждом обращении создается новый экземпляр этого объекта
+            services.AddSingleton<SingltonServices>(); // Все запросы используют 1 и тот же объект сервиса
+
+            services.AddTransient<IRepository, MockGamesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

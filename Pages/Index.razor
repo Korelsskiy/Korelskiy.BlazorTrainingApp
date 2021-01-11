@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject Korelskiy.BlazorTrainingApp.Repository.IRepository repository
 
 <div class="row">
     <div class="col text-center">
@@ -17,6 +18,12 @@
 
 <IndividualGame Game="oneGameToShow" IsTable="false" DisplayButtons="true" SwitchGame="ShowNewGame"/>
 
+<div class="row">
+    <div class="col text-center">
+        <button @onclick ="AddNewGame" class="btn btn-success">Add New Game</button>
+    </div>
+</div>
+
 @code{
 
     List<Game> games;
@@ -26,28 +33,8 @@
 
     protected async override Task OnInitializedAsync()
     {
-        await Task.Delay(3000);
-        games = new List<Game>()
-        {
-            new Game()
-            {
-                Name = "The Elder Scrolls 5: Skyrim",
-                Genre = "Action/RPG",
-                ReleaseDate = new DateTime(2011, 11, 11)
-            },
-            new Game()
-            {
-                Name = "Grand Theft Auto 5",
-                Genre = "Action/Adventure",
-                ReleaseDate = new DateTime(2013, 09, 17)
-            },
-            new Game()
-            {
-                Name = "Grand Theft Auto 4",
-                Genre = "Action/Adventure",
-                ReleaseDate = new DateTime(2008, 04, 29)
-            },
-        };
+        //await Task.Delay(3000);
+        games = repository.GetAllGames();
 
         rnd = new Random(DateTime.Now.Millisecond);
         oneGameToShow = games[rnd.Next(0, games.Count)];
@@ -77,5 +64,10 @@
         }
 
         return tempGame;
+    }
+
+    void AddNewGame()
+    {
+        games.Add(new Game { Name = "Game For Test", Genre = "Test", ReleaseDate = DateTime.Today });
     }
 }

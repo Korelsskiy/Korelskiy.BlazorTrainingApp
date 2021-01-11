@@ -17,42 +17,15 @@
 
 <div class="row">
     <div class="col text-center">
-        <input type="number" class="form-control-lg" @bind="currentCount"/>
+        <input type="number" class="form-control-lg" @bind="currentCount" />
     </div>
 </div>
 
-@code {
-    private int currentCount = 0;
-
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
-
-    List<Game> otherGames;
-
-    protected override void OnInitialized()
-    {
-        otherGames = new List<Game>()
-        {
-            new Game()
-            {
-                Name = "Minecraft",
-                Genre = "Sandbox/Survival",
-                ReleaseDate = new DateTime(2011, 11, 18)
-            },
-            new Game()
-            {
-                Name = "Grand Theft Auto: San Andreas",
-                Genre = "Action/Adventure",
-                ReleaseDate = new DateTime(2004, 10, 26)
-            },
-            new Game()
-            {
-                Name = "Assassin's Creed II",
-                Genre = "Action/Adventure/Stels",
-                ReleaseDate = new DateTime(2009, 11, 17)
-            },
-        };
-    }
-}
+<div class="row mt-3">
+    <div class="col-6 text-center alert alert-primary">
+        Singlton count: @singlton.Value
+    </div>
+    <div class="col-6 text-center alert alert-danger">
+        Transient count: @transient.Value
+    </div>
+</div>
